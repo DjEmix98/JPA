@@ -24,14 +24,8 @@ public class CityRestController {
 	@PostMapping("/search")
 	public List<City> searchCity(@RequestBody CityFind city){
 		
-		if(city.getName()==null) {
-			city.setName("%%");
-		}
-		else {
-			city.setName("%"+city.getName()+"%");
-		}
+		city.setName("%" + city.getName() == null? "":city.getName() + "%");
 		if(city.getCountryCode()==null) {
-			
 			city.setCountryCode("NO");
 		}
 		List<City> cityList = cityRepo.findCity(city.getName(), city.getPopulationMin(), 
@@ -41,27 +35,22 @@ public class CityRestController {
 	
 	@GetMapping("/{countryCode}/by-code-nation")
 	public List<City> cityByCode(@PathVariable("countryCode") String countryCode){
-		
 		List<City> cityList = cityRepo.findByCountryCode(countryCode);
 		return cityList;
 	}
 	
 	@GetMapping("/{id}/find")
 	public City setInfo(@PathVariable("id") Long id) {
-		
 		return cityRepo.findOne(id);
 	}
 	
 	@PostMapping("/save")
 	public City save(@RequestBody City city){
-		
 		return cityRepo.save(city); 
-		
 	}
 	
 	@PostMapping("/{id}/delete")
 	public void deleteCity(@PathVariable("id") Long id) {
-		
 		 cityRepo.delete(id);
 	}
 	

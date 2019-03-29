@@ -23,22 +23,19 @@ public class CountryRestController {
 
 	@GetMapping("/continent")
 	public List<String> findContinents(){
-
-		List<String> listContinents = countryRepo.findcontinents();
+		List<String> listContinents = countryRepo.findContinents();
 		return listContinents;
 	}
 
 	@GetMapping("/list-all")
 	public List<Country> getAllCountries(){
-
 		List<Country> listCountries = countryRepo.findAll();
 		return listCountries;
 	}
 
 	@GetMapping("/by-continent")
 	public List<Country> countryByContinent(@RequestParam("continent") String continent){
-
-		List<Country> listCountries = countryRepo.countryByContinent(continent);
+		List<Country> listCountries = countryRepo.findByContinent(continent);
 		return listCountries;
 	}
 
@@ -53,8 +50,7 @@ public class CountryRestController {
 		if(country.getName()==null) {
 			
 			country.setName("%%");
-		}
-		else {
+		} else {
 			country.setName("%"+country.getName()+"%");
 		}
 		List<Country> countryList = countryRepo.countryFindByContinentAndSurfaceArea(country.getName(), country.getPopulationMin(), country.getPopulationMax(),

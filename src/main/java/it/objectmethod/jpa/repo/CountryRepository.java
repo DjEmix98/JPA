@@ -11,10 +11,10 @@ import it.objectmethod.jpa.entity.Country;
 public interface CountryRepository extends JpaRepository<Country,String> {
 
 	@Query(value="select distinct continent from Country")
-	public List<String>findcontinents();
+	public List<String>findContinents();
 	
-	@Query(value="select c from Country c where continent = ?1")
-	public List<Country>countryByContinent(String continent);
+//	@Query(value="select c from Country c where continent = ?1")
+	public List<Country> findByContinent(String continent);
 	
 	@Query(value="select c "
 				+ "from Country c " 
